@@ -1,24 +1,22 @@
-const player = document.getElementById('player');
-let posX = 0;
-let posY = 0;
-const step = 10;
+const startBtn = document.getElementById('start-btn');
+const messageDiv = document.getElementById('message');
+const scarySound = document.getElementById('scary-sound');
 
-function movePlayer(event) {
-    switch (event.key) {
-        case 'ArrowUp':
-            posY = Math.max(0, posY - step);
-            break;
-        case 'ArrowDown':
-            posY = Math.min(350, posY + step); // 400 - player height
-            break;
-        case 'ArrowLeft':
-            posX = Math.max(0, posX - step);
-            break;
-        case 'ArrowRight':
-            posX = Math.min(550, posX + step); // 600 - player width
-            break;
-    }
-    player.style.transform = `translate(${posX}px, ${posY}px)`;
+startBtn.addEventListener('click', startGame);
+
+function startGame() {
+    messageDiv.textContent = "You're in a dark room. Suddenly, you hear a noise...";
+    setTimeout(playScarySound, 2000);
 }
 
-document.addEventListener('keydown', movePlayer);
+function playScarySound() {
+    scarySound.play();
+    messageDiv.textContent = "A ghost appears! What will you do?";
+    setTimeout(endGame, 5000);
+}
+
+function endGame() {
+    messageDiv.textContent = "Game Over! You were caught by the ghost.";
+    startBtn.style.display = "block";
+}
+
